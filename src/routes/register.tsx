@@ -44,10 +44,22 @@ function RegisterPage() {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (form.fullName.trim().length < 3) return toast.error("Enter your full name");
-    if (!isValidPhone(form.phone)) return toast.error("Enter a valid phone number");
-    if (form.password.length < 8) return toast.error("Password must be at least 8 characters");
-    if (form.password !== form.confirmPassword) return toast.error("Passwords do not match");
+    if (form.fullName.trim().length < 3) {
+      toast.error("Enter your full name");
+      return;
+    }
+    if (!isValidPhone(form.phone)) {
+      toast.error("Enter a valid phone number");
+      return;
+    }
+    if (form.password.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
     setLoading(true);
     const { data, error } = await supabase.auth.signUp({
