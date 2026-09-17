@@ -10,13 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
+import { Route as AuthenticatedDashboardDepositRouteImport } from './routes/_authenticated/dashboard.deposit'
+import { Route as AuthenticatedDashboardPlansRouteImport } from './routes/_authenticated/dashboard.plans'
+import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard.profile'
+import { Route as AuthenticatedDashboardReferralsRouteImport } from './routes/_authenticated/dashboard.referrals'
+import { Route as AuthenticatedDashboardTasksRouteImport } from './routes/_authenticated/dashboard.tasks'
+import { Route as AuthenticatedDashboardTransactionsRouteImport } from './routes/_authenticated/dashboard.transactions'
+import { Route as AuthenticatedDashboardWithdrawRouteImport } from './routes/_authenticated/dashboard.withdraw'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -34,36 +49,168 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardDepositRoute =
+  AuthenticatedDashboardDepositRouteImport.update({
+    id: '/deposit',
+    path: '/deposit',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardPlansRoute =
+  AuthenticatedDashboardPlansRouteImport.update({
+    id: '/plans',
+    path: '/plans',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardProfileRoute =
+  AuthenticatedDashboardProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardReferralsRoute =
+  AuthenticatedDashboardReferralsRouteImport.update({
+    id: '/referrals',
+    path: '/referrals',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardTasksRoute =
+  AuthenticatedDashboardTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardTransactionsRoute =
+  AuthenticatedDashboardTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardWithdrawRoute =
+  AuthenticatedDashboardWithdrawRouteImport.update({
+    id: '/withdraw',
+    path: '/withdraw',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
+  '/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
+  '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/dashboard/referrals': typeof AuthenticatedDashboardReferralsRoute
+  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
+  '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/dashboard/withdraw': typeof AuthenticatedDashboardWithdrawRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
+  '/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
+  '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/dashboard/referrals': typeof AuthenticatedDashboardReferralsRoute
+  '/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
+  '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/dashboard/withdraw': typeof AuthenticatedDashboardWithdrawRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
+  '/_authenticated/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
+  '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/_authenticated/dashboard/referrals': typeof AuthenticatedDashboardReferralsRoute
+  '/_authenticated/dashboard/tasks': typeof AuthenticatedDashboardTasksRoute
+  '/_authenticated/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/_authenticated/dashboard/withdraw': typeof AuthenticatedDashboardWithdrawRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forgot-password' | '/login' | '/register'
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/admin'
+    | '/dashboard'
+    | '/dashboard/deposit'
+    | '/dashboard/plans'
+    | '/dashboard/profile'
+    | '/dashboard/referrals'
+    | '/dashboard/tasks'
+    | '/dashboard/transactions'
+    | '/dashboard/withdraw'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/register'
-  id: '__root__' | '/' | '/forgot-password' | '/login' | '/register'
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/admin'
+    | '/dashboard/deposit'
+    | '/dashboard/plans'
+    | '/dashboard/profile'
+    | '/dashboard/referrals'
+    | '/dashboard/tasks'
+    | '/dashboard/transactions'
+    | '/dashboard/withdraw'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/deposit'
+    | '/_authenticated/dashboard/plans'
+    | '/_authenticated/dashboard/profile'
+    | '/_authenticated/dashboard/referrals'
+    | '/_authenticated/dashboard/tasks'
+    | '/_authenticated/dashboard/transactions'
+    | '/_authenticated/dashboard/withdraw'
+    | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
@@ -76,6 +223,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -99,11 +253,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/deposit': {
+      id: '/_authenticated/dashboard/deposit'
+      path: '/deposit'
+      fullPath: '/dashboard/deposit'
+      preLoaderRoute: typeof AuthenticatedDashboardDepositRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/plans': {
+      id: '/_authenticated/dashboard/plans'
+      path: '/plans'
+      fullPath: '/dashboard/plans'
+      preLoaderRoute: typeof AuthenticatedDashboardPlansRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/profile': {
+      id: '/_authenticated/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/referrals': {
+      id: '/_authenticated/dashboard/referrals'
+      path: '/referrals'
+      fullPath: '/dashboard/referrals'
+      preLoaderRoute: typeof AuthenticatedDashboardReferralsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/tasks': {
+      id: '/_authenticated/dashboard/tasks'
+      path: '/tasks'
+      fullPath: '/dashboard/tasks'
+      preLoaderRoute: typeof AuthenticatedDashboardTasksRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/transactions': {
+      id: '/_authenticated/dashboard/transactions'
+      path: '/transactions'
+      fullPath: '/dashboard/transactions'
+      preLoaderRoute: typeof AuthenticatedDashboardTransactionsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/withdraw': {
+      id: '/_authenticated/dashboard/withdraw'
+      path: '/withdraw'
+      fullPath: '/dashboard/withdraw'
+      preLoaderRoute: typeof AuthenticatedDashboardWithdrawRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
+interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardDepositRoute: typeof AuthenticatedDashboardDepositRoute
+  AuthenticatedDashboardPlansRoute: typeof AuthenticatedDashboardPlansRoute
+  AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
+  AuthenticatedDashboardReferralsRoute: typeof AuthenticatedDashboardReferralsRoute
+  AuthenticatedDashboardTasksRoute: typeof AuthenticatedDashboardTasksRoute
+  AuthenticatedDashboardTransactionsRoute: typeof AuthenticatedDashboardTransactionsRoute
+  AuthenticatedDashboardWithdrawRoute: typeof AuthenticatedDashboardWithdrawRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+}
+
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardDepositRoute: AuthenticatedDashboardDepositRoute,
+    AuthenticatedDashboardPlansRoute: AuthenticatedDashboardPlansRoute,
+    AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRoute,
+    AuthenticatedDashboardReferralsRoute: AuthenticatedDashboardReferralsRoute,
+    AuthenticatedDashboardTasksRoute: AuthenticatedDashboardTasksRoute,
+    AuthenticatedDashboardTransactionsRoute:
+      AuthenticatedDashboardTransactionsRoute,
+    AuthenticatedDashboardWithdrawRoute: AuthenticatedDashboardWithdrawRoute,
+    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  }
+
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
