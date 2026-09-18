@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      investment_plans: {
+        Row: {
+          cost: number
+          created_at: string
+          daily_return: number
+          duration_days: number
+          id: string
+          is_active: boolean
+          name: string
+          sort_order: number
+          total_return: number
+          updated_at: string
+        }
+        Insert: {
+          cost: number
+          created_at?: string
+          daily_return: number
+          duration_days?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          sort_order?: number
+          total_return: number
+          updated_at?: string
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          daily_return?: number
+          duration_days?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          sort_order?: number
+          total_return?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           balance: number
@@ -53,6 +92,59 @@ export type Database = {
         }
         Relationships: []
       }
+      user_investments: {
+        Row: {
+          activated_at: string
+          amount_invested: number
+          created_at: string
+          daily_return: number
+          duration_days: number
+          expires_at: string
+          id: string
+          plan_id: string
+          plan_name: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activated_at?: string
+          amount_invested: number
+          created_at?: string
+          daily_return: number
+          duration_days: number
+          expires_at: string
+          id?: string
+          plan_id: string
+          plan_name: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activated_at?: string
+          amount_invested?: number
+          created_at?: string
+          daily_return?: number
+          duration_days?: number
+          expires_at?: string
+          id?: string
+          plan_id?: string
+          plan_name?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_investments_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "investment_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -60,6 +152,29 @@ export type Database = {
     Functions: {
       generate_referral_code: { Args: never; Returns: string }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      purchase_investment_plan: {
+        Args: { _plan_id: string }
+        Returns: {
+          activated_at: string
+          amount_invested: number
+          created_at: string
+          daily_return: number
+          duration_days: number
+          expires_at: string
+          id: string
+          plan_id: string
+          plan_name: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_investments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       app_role: "user" | "admin"
