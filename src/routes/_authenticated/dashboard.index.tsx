@@ -24,12 +24,13 @@ const money = (value: number) =>
 
 function DashboardHome() {
   const { data: profile, isLoading } = useProfile();
+  const { data: summary } = useEarningsSummary();
 
   const stats = [
-    { label: "Active Plans", value: "0", icon: Layers },
-    { label: "Total Earnings", value: money(0), icon: TrendingUp },
+    { label: "Active Plans", value: String(summary?.activePlans ?? 0), icon: Layers },
+    { label: "Total Earnings", value: money(summary?.totalEarnings ?? 0), icon: TrendingUp },
     { label: "Referrals", value: "0", icon: Users },
-    { label: "Pending Transactions", value: "0", icon: Receipt },
+    { label: "Profit Payouts", value: String(summary?.payoutCount ?? 0), icon: Receipt },
   ];
 
   function copyCode() {
