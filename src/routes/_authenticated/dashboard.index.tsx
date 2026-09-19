@@ -3,6 +3,7 @@ import { Copy, Layers, Receipt, TrendingUp, Users, Wallet } from "lucide-react";
 import { toast } from "sonner";
 
 import { useProfile } from "@/hooks/useProfile";
+import { useEarningsSummary } from "@/hooks/useEarnings";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
