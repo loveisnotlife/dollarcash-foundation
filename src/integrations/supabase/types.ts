@@ -130,6 +130,30 @@ export type Database = {
           },
         ]
       }
+      referral_rewards: {
+        Row: {
+          created_at: string
+          id: string
+          milestone: number
+          referrer_id: string
+          reward_amount: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          milestone: number
+          referrer_id: string
+          reward_amount: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          milestone?: number
+          referrer_id?: string
+          reward_amount?: number
+        }
+        Relationships: []
+      }
       user_investments: {
         Row: {
           activated_at: string
@@ -188,9 +212,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      award_referral_milestones: {
+        Args: { _referrer_id: string }
+        Returns: undefined
+      }
       credit_daily_profits: { Args: never; Returns: Json }
       generate_referral_code: { Args: never; Returns: string }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      my_referral_stats: { Args: never; Returns: Json }
       purchase_investment_plan: {
         Args: { _plan_id: string }
         Returns: {
@@ -213,6 +242,10 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      successful_referral_count: {
+        Args: { _referrer_id: string }
+        Returns: number
       }
     }
     Enums: {
