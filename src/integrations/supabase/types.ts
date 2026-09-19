@@ -92,6 +92,44 @@ export type Database = {
         }
         Relationships: []
       }
+      profit_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          investment_id: string
+          plan_name: string
+          profit_date: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          investment_id: string
+          plan_name: string
+          profit_date: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          investment_id?: string
+          plan_name?: string
+          profit_date?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profit_payments_investment_id_fkey"
+            columns: ["investment_id"]
+            isOneToOne: false
+            referencedRelation: "user_investments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_investments: {
         Row: {
           activated_at: string
@@ -150,6 +188,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      credit_daily_profits: { Args: never; Returns: Json }
       generate_referral_code: { Args: never; Returns: string }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       purchase_investment_plan: {
