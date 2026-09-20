@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          account_number: string
+          account_title: string
+          created_at: string
+          id: boolean
+          updated_at: string
+          usd_pkr_rate: number
+        }
+        Insert: {
+          account_number?: string
+          account_title?: string
+          created_at?: string
+          id?: boolean
+          updated_at?: string
+          usd_pkr_rate?: number
+        }
+        Update: {
+          account_number?: string
+          account_title?: string
+          created_at?: string
+          id?: boolean
+          updated_at?: string
+          usd_pkr_rate?: number
+        }
+        Relationships: []
+      }
+      deposits: {
+        Row: {
+          amount_pkr: number
+          amount_usd: number
+          created_at: string
+          id: string
+          method: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          screenshot_path: string | null
+          status: string
+          tid: string
+          updated_at: string
+          usd_pkr_rate: number
+          user_id: string
+        }
+        Insert: {
+          amount_pkr: number
+          amount_usd: number
+          created_at?: string
+          id?: string
+          method: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_path?: string | null
+          status?: string
+          tid: string
+          updated_at?: string
+          usd_pkr_rate: number
+          user_id: string
+        }
+        Update: {
+          amount_pkr?: number
+          amount_usd?: number
+          created_at?: string
+          id?: string
+          method?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_path?: string | null
+          status?: string
+          tid?: string
+          updated_at?: string
+          usd_pkr_rate?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       investment_plans: {
         Row: {
           cost: number
@@ -212,6 +290,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_deposits: {
+        Args: { _status?: string }
+        Returns: {
+          amount_pkr: number
+          amount_usd: number
+          created_at: string
+          full_name: string
+          id: string
+          method: string
+          phone: string
+          rejection_reason: string
+          reviewed_at: string
+          screenshot_path: string
+          status: string
+          tid: string
+          usd_pkr_rate: number
+          user_id: string
+        }[]
+      }
       award_referral_milestones: {
         Args: { _referrer_id: string }
         Returns: undefined
@@ -239,6 +336,31 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "user_investments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      review_deposit: {
+        Args: { _approve: boolean; _deposit_id: string; _reason?: string }
+        Returns: {
+          amount_pkr: number
+          amount_usd: number
+          created_at: string
+          id: string
+          method: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          screenshot_path: string | null
+          status: string
+          tid: string
+          updated_at: string
+          usd_pkr_rate: number
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "deposits"
           isOneToOne: true
           isSetofReturn: false
         }
