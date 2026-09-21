@@ -74,9 +74,9 @@ function DepositPage() {
 
       const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
       const path = `${auth.user.id}/${crypto.randomUUID()}.${ext}`;
-      const upload = await supabase.storage.from("deposit-proofs").upload(path, file, {
-        contentType: file.type || undefined,
-      });
+      const upload = await supabase.storage
+        .from("deposit-proofs")
+        .upload(path, file, file.type ? { contentType: file.type } : {});
       if (upload.error) throw upload.error;
 
       // Rate, PKR amount and PENDING status are all set server-side by the database.

@@ -67,9 +67,10 @@ export function useAdminDeposits(status: string | null) {
   return useQuery({
     queryKey: ["admin-deposits", status],
     queryFn: async (): Promise<AdminDeposit[]> => {
-      const { data, error } = await supabase.rpc("admin_list_deposits", {
-        _status: status ?? undefined,
-      });
+      const { data, error } = await supabase.rpc(
+        "admin_list_deposits",
+        status ? { _status: status } : {},
+      );
       if (error) throw error;
       return (data ?? []) as unknown as AdminDeposit[];
     },
