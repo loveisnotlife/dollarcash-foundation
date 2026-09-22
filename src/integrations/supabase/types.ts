@@ -285,6 +285,51 @@ export type Database = {
           },
         ]
       }
+      withdrawals: {
+        Row: {
+          account_number: string
+          account_title: string
+          amount_usd: number
+          created_at: string
+          id: string
+          method: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_number: string
+          account_title: string
+          amount_usd: number
+          created_at?: string
+          id?: string
+          method: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_number?: string
+          account_title?: string
+          amount_usd?: number
+          created_at?: string
+          id?: string
+          method?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -306,6 +351,23 @@ export type Database = {
           status: string
           tid: string
           usd_pkr_rate: number
+          user_id: string
+        }[]
+      }
+      admin_list_withdrawals: {
+        Args: { _status?: string }
+        Returns: {
+          account_number: string
+          account_title: string
+          amount_usd: number
+          created_at: string
+          full_name: string
+          id: string
+          method: string
+          phone: string
+          rejection_reason: string
+          reviewed_at: string
+          status: string
           user_id: string
         }[]
       }
@@ -340,6 +402,34 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      request_withdrawal: {
+        Args: {
+          _account_number: string
+          _account_title: string
+          _amount_usd: number
+          _method: string
+        }
+        Returns: {
+          account_number: string
+          account_title: string
+          amount_usd: number
+          created_at: string
+          id: string
+          method: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "withdrawals"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       review_deposit: {
         Args: { _approve: boolean; _deposit_id: string; _reason?: string }
         Returns: {
@@ -361,6 +451,29 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "deposits"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      review_withdrawal: {
+        Args: { _approve: boolean; _reason?: string; _withdrawal_id: string }
+        Returns: {
+          account_number: string
+          account_title: string
+          amount_usd: number
+          created_at: string
+          id: string
+          method: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "withdrawals"
           isOneToOne: true
           isSetofReturn: false
         }
