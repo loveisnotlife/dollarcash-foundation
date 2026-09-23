@@ -4,6 +4,7 @@ import { CreditCard, ShieldCheck, Users, ArrowDownToLine, ArrowUpFromLine } from
 import { supabase } from "@/integrations/supabase/client";
 import { DashboardShell } from "@/components/DashboardShell";
 import { AdminDeposits } from "@/components/AdminDeposits";
+import { AdminWithdrawals } from "@/components/AdminWithdrawals";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   // Authorization is decided by the database, never by client-side constants.
@@ -34,7 +35,6 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 const PANELS = [
   { label: "Users", description: "Search accounts, review balances and ban status.", icon: Users },
-  { label: "Withdrawals", description: "Review payout requests before release.", icon: ArrowUpFromLine },
   { label: "Payment Methods", description: "Configure the channels users can pay with.", icon: CreditCard },
 ];
 
@@ -59,6 +59,14 @@ function AdminPage() {
             <h2 className="font-display text-lg font-semibold text-foreground">Deposits</h2>
           </div>
           <AdminDeposits />
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <ArrowUpFromLine className="size-4 text-primary" />
+            <h2 className="font-display text-lg font-semibold text-foreground">Withdrawals</h2>
+          </div>
+          <AdminWithdrawals />
         </div>
 
         <div className="stagger grid gap-3 sm:grid-cols-2">
