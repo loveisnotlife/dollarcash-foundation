@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -16,12 +16,14 @@ export const Route = createFileRoute("/register")({
       { title: "Create account — DollarCash" },
       {
         name: "description",
-        content: "Open your DollarCash account in seconds using just your phone number.",
+        content:
+          "Open your DollarCash account in seconds using just your phone number.",
       },
       { property: "og:title", content: "Create account — DollarCash" },
       {
         property: "og:description",
-        content: "Register with your phone number and start tracking your earnings.",
+        content:
+          "Register with your phone number and start tracking your earnings.",
       },
     ],
   }),
@@ -31,25 +33,36 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   const navigate = useNavigate();
 
-  const getReferralFromUrl = () => {
-    if (typeof window === "undefined") return "";
-    const ref = new URLSearchParams(window.location.search).get("ref");
-    return ref?.trim().toUpperCase() ?? "";
-  };
-
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    referral: getReferralFromUrl(),
+    referral: "",
   });
 
   const [loading, setLoading] = useState(false);
 
-  const set = (key: keyof typeof form) => (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  // Automatically read referral code from:
+  // /register?ref=DCE813ED
+  useEffect(() => {
+    const ref = new URLSearchParams(window.location.search)
+      .get("ref")
+      ?.trim()
+      .toUpperCase();
+
+    if (ref) {
+      setForm((current) => ({
+        ...current,
+        referral: current.referral || ref,
+      }));
+    }
+  }, []);
+
+  const set =
+    (key: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setForm((f) => ({ ...f, [key]: e.target.value }));
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -107,7 +120,7 @@ function RegisterPage() {
 
     if (profileError) {
       toast.error(
-        "Account created, but your profile could not be saved. Please contact support."
+        "Account created, but your profile could not be saved. Please contact support.",
       );
       return;
     }
@@ -206,4 +219,4 @@ function RegisterPage() {
       </form>
     </AuthShell>
   );
-      }
+}
