@@ -30,43 +30,60 @@ export const Route = createFileRoute("/register")({
 
 function RegisterPage() {
   const navigate = useNavigate();
+
+  const getReferralFromUrl = () => {
+    if (typeof window === "undefined") return "";
+    const ref = new URLSearchParams(window.location.search).get("ref");
+    return ref?.trim().toUpperCase() ?? "";
+  };
+
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    referral: "",
+    referral: getReferralFromUrl(),
   });
+
   const [loading, setLoading] = useState(false);
 
-  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set = (key: keyof typeof form) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     if (form.fullName.trim().length < 3) {
       toast.error("Enter your full name");
       return;
     }
+
     if (!isValidPhone(form.phone)) {
       toast.error("Enter a valid phone number");
       return;
     }
+
     if (form.password.length < 8) {
       toast.error("Password must be at least 8 characters");
       return;
     }
+
     if (form.password !== form.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
 
     setLoading(true);
+
     const { data, error } = await supabase.auth.signUp({
       email: phoneToAuthEmail(form.phone),
       password: form.password,
       options: {
-        data: { full_name: form.fullName.trim(), phone: formatPhone(form.phone) },
+        data: {
+          full_name: form.fullName.trim(),
+          phone: formatPhone(form.phone),
+        },
         emailRedirectTo: window.location.origin,
       },
     });
@@ -81,13 +98,17 @@ function RegisterPage() {
       id: data.user.id,
       full_name: form.fullName.trim(),
       phone: formatPhone(form.phone),
-      referred_by: form.referral.trim() ? form.referral.trim().toUpperCase() : null,
+      referred_by: form.referral.trim()
+        ? form.referral.trim().toUpperCase()
+        : null,
     } as never);
 
     setLoading(false);
 
     if (profileError) {
-      toast.error("Account created, but your profile could not be saved. Please contact support.");
+      toast.error(
+        "Account created, but your profile could not be saved. Please contact support."
+      );
       return;
     }
 
@@ -111,8 +132,15 @@ function RegisterPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="fullName">Full name</Label>
-          <Input id="fullName" autoComplete="name" value={form.fullName} onChange={set("fullName")} required />
+          <Input
+            id="fullName"
+            autoComplete="name"
+            value={form.fullName}
+            onChange={set("fullName")}
+            required
+          />
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="phone">Phone number</Label>
           <Input
@@ -125,6 +153,7 @@ function RegisterPage() {
             required
           />
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <Input
@@ -136,6 +165,7 @@ function RegisterPage() {
             required
           />
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="confirmPassword">Confirm password</Label>
           <Input
@@ -147,16 +177,33 @@ function RegisterPage() {
             required
           />
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="referral">
-            Referral code <span className="text-muted-foreground">(optional)</span>
+            Referral code{" "}
+            <span className="text-muted-foreground">(optional)</span>
           </Label>
-          <Input id="referral" placeholder="DC1A2B3C" value={form.referral} onChange={set("referral")} />
+
+          <Input
+            id="referral"
+            placeholder="DC1A2B3C"
+            value={form.referral}
+            onChange={set("referral")}
+          />
         </div>
-        <Button type="submit" disabled={loading} className="tap h-12 w-full rounded-xl text-base">
-          {loading ? <Loader2 className="size-4 animate-spin" /> : "Create account"}
+
+        <Button
+          type="submit"
+          disabled={loading}
+          className="tap h-12 w-full rounded-xl text-base"
+        >
+          {loading ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            "Create account"
+          )}
         </Button>
       </form>
     </AuthShell>
   );
-}
+      }
