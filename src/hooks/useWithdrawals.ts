@@ -40,6 +40,25 @@ export function useMyWithdrawals() {
   });
 }
 
+export type WithdrawalGate = { allowed: boolean; required_referrals: number; paid_referrals: number };
+
+/** Server-computed paid-referral requirement for the next withdrawal. */
+export function useWithdrawalGate() {
+  return useQuery({
+    queryKey: ["withdrawal-gate"],
+    queryFn: async (): Promise<WithdrawalGate> => {
+      const { data, error } = await supabase.rpc("my_withdrawal_gate" as never);
+      if (error) throw error;
+      const raw = (data ?? {}) as Record<string, unknown>;
+      return {
+        allowed: Boolean(raw["allowed"] ?? true),
+        required_referrals: Number(raw["required_referrals"] ?? 0),
+        paid_referrals: Number(raw["paid_referrals"] ?? 0),
+      };
+    },
+  });
+}
+
 /** Admin-only withdrawal list, authorized inside the database function. */
 export function useAdminWithdrawals(status: string | null) {
   return useQuery({

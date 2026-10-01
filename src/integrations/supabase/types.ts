@@ -379,6 +379,7 @@ export type Database = {
       generate_referral_code: { Args: never; Returns: string }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       my_referral_stats: { Args: never; Returns: Json }
+      my_withdrawal_gate: { Args: never; Returns: Json }
       purchase_investment_plan: {
         Args: { _plan_id: string }
         Returns: {
@@ -482,6 +483,7 @@ export type Database = {
         Args: { _referrer_id: string }
         Returns: number
       }
+      withdrawal_gate_for: { Args: { _uid: string }; Returns: Json }
     }
     Enums: {
       app_role: "user" | "admin"
