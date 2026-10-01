@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Wallet } from "lucide-react";
 import { toast } from "sonner";
@@ -10,7 +10,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useProfile } from "@/hooks/useProfile";
-import { MIN_WITHDRAWAL, useMyWithdrawals, type WithdrawMethod } from "@/hooks/useWithdrawals";
+import {
+  MIN_WITHDRAWAL,
+  useMyWithdrawals,
+  useWithdrawalGate,
+  type WithdrawMethod,
+} from "@/hooks/useWithdrawals";
 
 export const Route = createFileRoute("/_authenticated/dashboard/withdraw")({
   head: () => ({
@@ -51,6 +56,7 @@ function WithdrawPage() {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useProfile();
   const { data: withdrawals, isLoading: listLoading } = useMyWithdrawals();
+  const { data: gate } = useWithdrawalGate();
 
   const [method, setMethod] = useState<WithdrawMethod>("EASYPAISA");
   const [title, setTitle] = useState("");
@@ -82,8 +88,12 @@ function WithdrawPage() {
       setAmount("");
       void queryClient.invalidateQueries({ queryKey: ["withdrawals"] });
       void queryClient.invalidateQueries({ queryKey: ["profile"] });
+      void queryClient.invalidateQueries({ queryKey: ["withdrawal-gate"] });
     },
-    onError: (error: Error) => toast.error(error.message || "Could not submit your withdrawal."),
+    onError: (error: Error) => {
+      toast.error(error.message || "Could not submit your withdrawal.");
+      void queryClient.invalidateQueries({ queryKey: ["withdrawal-gate"] });
+    },
   });
 
   return (
@@ -177,9 +187,20 @@ function WithdrawPage() {
             </p>
           </div>
 
-          <Button type="submit" className="tap w-full" disabled={submit.isPending}>
-            {submit.isPending ? "Submitting…" : "Request withdrawal"}
-          </Button>
+          {gate && !gate.allowed ? (
+            <div className="space-y-3 rounded-xl border border-accent/40 bg-accent/10 p-4 text-center">
+              <p className="text-sm font-medium text-foreground">
+                1 paid referral is required to process your next withdrawal.
+              </p>
+              <Button asChild variant="outline" className="tap w-full">
+                <Link to="/dashboard/referrals">Invite friends</Link>
+              </Button>
+            </div>
+          ) : (
+            <Button type="submit" className="tap w-full" disabled={submit.isPending}>
+              {submit.isPending ? "Submitting…" : "Request withdrawal"}
+            </Button>
+          )}
           <p className="text-center text-xs text-muted-foreground">
             The amount is held from your balance while an admin reviews the request, and refunded in
             full if it is rejected.
