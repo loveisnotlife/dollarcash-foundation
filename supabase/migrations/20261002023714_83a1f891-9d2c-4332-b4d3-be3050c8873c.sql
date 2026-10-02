@@ -1,0 +1,18 @@
+REVOKE EXECUTE ON FUNCTION public.is_admin(uuid) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.withdrawal_gate_for(uuid) FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.successful_referral_count(uuid) FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.award_referral_milestones(uuid) FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.credit_daily_profits() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.generate_referral_code() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.deposits_guard_fields() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.profiles_protect_fields() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.referral_on_investment() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.update_updated_at_column() FROM public, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.my_withdrawal_gate() FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.my_referral_stats() FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.admin_list_deposits(text) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.admin_list_withdrawals(text) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.request_withdrawal(text, text, text, numeric) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.review_deposit(uuid, boolean, text) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.review_withdrawal(uuid, boolean, text) FROM public, anon;
+REVOKE EXECUTE ON FUNCTION public.purchase_investment_plan(uuid) FROM public, anon;
