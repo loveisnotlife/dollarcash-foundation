@@ -232,6 +232,71 @@ export type Database = {
         }
         Relationships: []
       }
+      task_completions: {
+        Row: {
+          created_at: string
+          id: string
+          reward: number
+          task_date: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reward: number
+          task_date: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reward?: number
+          task_date?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_completions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          is_active: boolean
+          reward: number
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          reward?: number
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          reward?: number
+          sort_order?: number
+          title?: string
+        }
+        Relationships: []
+      }
       user_investments: {
         Row: {
           activated_at: string
@@ -375,10 +440,12 @@ export type Database = {
         Args: { _referrer_id: string }
         Returns: undefined
       }
+      complete_task: { Args: { _task_id: string }; Returns: Json }
       credit_daily_profits: { Args: never; Returns: Json }
       generate_referral_code: { Args: never; Returns: string }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       my_referral_stats: { Args: never; Returns: Json }
+      my_tasks_today: { Args: never; Returns: Json }
       my_withdrawal_gate: { Args: never; Returns: Json }
       purchase_investment_plan: {
         Args: { _plan_id: string }
