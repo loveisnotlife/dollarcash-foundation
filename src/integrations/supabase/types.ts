@@ -17,9 +17,7 @@ export type Database = {
       app_settings: {
         Row: {
           account_number: string
-          account_number_2: string
           account_title: string
-          account_title_2: string
           created_at: string
           id: boolean
           updated_at: string
@@ -27,9 +25,7 @@ export type Database = {
         }
         Insert: {
           account_number?: string
-          account_number_2?: string
           account_title?: string
-          account_title_2?: string
           created_at?: string
           id?: boolean
           updated_at?: string
@@ -37,9 +33,7 @@ export type Database = {
         }
         Update: {
           account_number?: string
-          account_number_2?: string
           account_title?: string
-          account_title_2?: string
           created_at?: string
           id?: boolean
           updated_at?: string
