@@ -42,6 +42,7 @@ function RegisterPage() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [referralFromLink, setReferralFromLink] = useState(false);
 
   // Automatically read referral code from:
   // /register?ref=DCE813ED
@@ -56,6 +57,7 @@ function RegisterPage() {
         ...current,
         referral: current.referral || ref,
       }));
+      setReferralFromLink(true);
     }
   }, []);
 
@@ -202,7 +204,14 @@ function RegisterPage() {
             placeholder="DC1A2B3C"
             value={form.referral}
             onChange={set("referral")}
+            readOnly={referralFromLink}
+            className={referralFromLink ? "border-primary/40 bg-primary/5" : undefined}
           />
+          {referralFromLink ? (
+            <p className="text-xs text-primary">
+              Referral code applied automatically from your invite link.
+            </p>
+          ) : null}
         </div>
 
         <Button
