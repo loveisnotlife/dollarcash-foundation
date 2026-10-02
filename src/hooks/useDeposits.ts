@@ -27,8 +27,6 @@ export type AppSettings = {
   usd_pkr_rate: number;
   account_title: string;
   account_number: string;
-  account_title_2: string;
-  account_number_2: string;
 };
 
 /** Admin-configured USD/PKR rate and payment account details. */
@@ -38,7 +36,7 @@ export function useAppSettings() {
     queryFn: async (): Promise<AppSettings | null> => {
       const { data, error } = await supabase
         .from("app_settings")
-        .select("usd_pkr_rate, account_title, account_number, account_title_2, account_number_2")
+        .select("usd_pkr_rate, account_title, account_number")
         .maybeSingle();
       if (error) throw error;
       return (data as AppSettings | null) ?? null;

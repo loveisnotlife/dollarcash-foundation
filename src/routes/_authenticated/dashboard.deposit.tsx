@@ -124,37 +124,17 @@ function DepositPage() {
         {settingsLoading ? (
           <Skeleton className="mt-4 h-16 w-full" />
         ) : (
-          <div className="mt-4 space-y-5">
-            <div className="space-y-3">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Account 1
-              </p>
-              <DetailRow
-                label="Account title"
-                value={settings?.account_title ?? "—"}
-                onCopy={() => copy(settings?.account_title ?? "", "Account title")}
-              />
-              <DetailRow
-                label="Account number"
-                value={settings?.account_number ?? "—"}
-                onCopy={() => copy(settings?.account_number ?? "", "Account number")}
-              />
-            </div>
-            <div className="space-y-3 border-t border-border/60 pt-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Account 2
-              </p>
-              <DetailRow
-                label="Account title"
-                value={settings?.account_title_2 ?? "—"}
-                onCopy={() => copy(settings?.account_title_2 ?? "", "Account title")}
-              />
-              <DetailRow
-                label="Account number"
-                value={settings?.account_number_2 ?? "—"}
-                onCopy={() => copy(settings?.account_number_2 ?? "", "Account number")}
-              />
-            </div>
+          <div className="mt-4 space-y-3">
+            <DetailRow
+              label="Account title"
+              value={settings?.account_title ?? "—"}
+              onCopy={() => copy(settings?.account_title ?? "", "Account title")}
+            />
+            <DetailRow
+              label="Account number"
+              value={settings?.account_number ?? "—"}
+              onCopy={() => copy(settings?.account_number ?? "", "Account number")}
+            />
             <DetailRow label="Accepted" value="EasyPaisa · JazzCash" />
             <DetailRow label="Rate" value={`$1 = ${pkr(rate)}`} />
           </div>
