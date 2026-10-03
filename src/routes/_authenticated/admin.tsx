@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { DashboardShell } from "@/components/DashboardShell";
 import { AdminDeposits } from "@/components/AdminDeposits";
 import { AdminWithdrawals } from "@/components/AdminWithdrawals";
+import { AdminDepositAccount, AdminPlans } from "@/components/AdminSettings";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   // Authorization is decided by the database, never by client-side constants.
@@ -67,6 +68,16 @@ function AdminPage() {
             <h2 className="font-display text-lg font-semibold text-foreground">Withdrawals</h2>
           </div>
           <AdminWithdrawals />
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="font-display text-lg font-semibold text-foreground">Deposit Account</h2>
+          <AdminDepositAccount />
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="font-display text-lg font-semibold text-foreground">Investment Plans</h2>
+          <AdminPlans />
         </div>
 
         <div className="stagger grid gap-3 sm:grid-cols-2">

@@ -10,6 +10,7 @@ import {
   LogOut,
   Menu,
   ShieldCheck,
+  Sparkles,
   TrendingUp,
   UserRound,
   Users,
@@ -30,6 +31,7 @@ const NAV = [
   { to: "/dashboard/withdraw", label: "Withdraw", icon: ArrowUpFromLine },
   { to: "/dashboard/referrals", label: "Referrals", icon: Users },
   { to: "/dashboard/transactions", label: "Transactions", icon: ListOrdered },
+  { to: "/dashboard/budget", label: "Budget Planner", icon: Sparkles },
   { to: "/dashboard/profile", label: "Profile", icon: UserRound },
 ] as const;
 
