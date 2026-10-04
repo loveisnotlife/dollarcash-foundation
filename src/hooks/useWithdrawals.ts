@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type WithdrawMethod = "EASYPAISA" | "JAZZCASH";
 
-export const MIN_WITHDRAWAL = 0.15;
+export const MIN_WITHDRAWAL = 0.5;
 
 export type Withdrawal = {
   id: string;
