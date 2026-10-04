@@ -175,9 +175,9 @@ function WithdrawPage() {
               id="amount"
               type="number"
               inputMode="decimal"
-              min="0.15"
+              min="0.50"
               step="0.01"
-              placeholder="0.15"
+              placeholder="0.50"
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
             />
