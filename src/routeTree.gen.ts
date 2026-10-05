@@ -17,7 +17,6 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
-import { Route as AuthenticatedDashboardBudgetRouteImport } from './routes/_authenticated/dashboard.budget'
 import { Route as AuthenticatedDashboardDepositRouteImport } from './routes/_authenticated/dashboard.deposit'
 import { Route as AuthenticatedDashboardPlansRouteImport } from './routes/_authenticated/dashboard.plans'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard.profile'
@@ -64,12 +63,6 @@ const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardBudgetRoute =
-  AuthenticatedDashboardBudgetRouteImport.update({
-    id: '/budget',
-    path: '/budget',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
 const AuthenticatedDashboardDepositRoute =
@@ -122,7 +115,6 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/dashboard/budget': typeof AuthenticatedDashboardBudgetRoute
   '/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
   '/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
@@ -138,7 +130,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/dashboard/budget': typeof AuthenticatedDashboardBudgetRoute
   '/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
   '/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
@@ -157,7 +148,6 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/_authenticated/dashboard/budget': typeof AuthenticatedDashboardBudgetRoute
   '/_authenticated/dashboard/deposit': typeof AuthenticatedDashboardDepositRoute
   '/_authenticated/dashboard/plans': typeof AuthenticatedDashboardPlansRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
@@ -176,7 +166,6 @@ export interface FileRouteTypes {
     | '/register'
     | '/admin'
     | '/dashboard'
-    | '/dashboard/budget'
     | '/dashboard/deposit'
     | '/dashboard/plans'
     | '/dashboard/profile'
@@ -192,7 +181,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/admin'
-    | '/dashboard/budget'
     | '/dashboard/deposit'
     | '/dashboard/plans'
     | '/dashboard/profile'
@@ -210,7 +198,6 @@ export interface FileRouteTypes {
     | '/register'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
-    | '/_authenticated/dashboard/budget'
     | '/_authenticated/dashboard/deposit'
     | '/_authenticated/dashboard/plans'
     | '/_authenticated/dashboard/profile'
@@ -287,13 +274,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/dashboard/budget': {
-      id: '/_authenticated/dashboard/budget'
-      path: '/budget'
-      fullPath: '/dashboard/budget'
-      preLoaderRoute: typeof AuthenticatedDashboardBudgetRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
     '/_authenticated/dashboard/deposit': {
       id: '/_authenticated/dashboard/deposit'
       path: '/deposit'
@@ -347,7 +327,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedDashboardRouteChildren {
-  AuthenticatedDashboardBudgetRoute: typeof AuthenticatedDashboardBudgetRoute
   AuthenticatedDashboardDepositRoute: typeof AuthenticatedDashboardDepositRoute
   AuthenticatedDashboardPlansRoute: typeof AuthenticatedDashboardPlansRoute
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
@@ -360,7 +339,6 @@ interface AuthenticatedDashboardRouteChildren {
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
-    AuthenticatedDashboardBudgetRoute: AuthenticatedDashboardBudgetRoute,
     AuthenticatedDashboardDepositRoute: AuthenticatedDashboardDepositRoute,
     AuthenticatedDashboardPlansRoute: AuthenticatedDashboardPlansRoute,
     AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRoute,
