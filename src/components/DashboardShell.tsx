@@ -5,6 +5,7 @@ import {
   ArrowDownToLine,
   ArrowUpFromLine,
   CheckSquare,
+  History,
   LayoutDashboard,
   ListOrdered,
   LogOut,
@@ -30,6 +31,7 @@ const NAV = [
   { to: "/dashboard/withdraw", label: "Withdraw", icon: ArrowUpFromLine },
   { to: "/dashboard/referrals", label: "Referrals", icon: Users },
   { to: "/dashboard/transactions", label: "Transactions", icon: ListOrdered },
+  { to: "/dashboard/history", label: "Balance History", icon: History },
   { to: "/dashboard/profile", label: "Profile", icon: UserRound },
 ] as const;
 
