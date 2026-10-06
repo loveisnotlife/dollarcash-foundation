@@ -8,6 +8,13 @@
       "when": 1791084228522,
       "tag": "0000_withdraw_min_050_no_referral",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791258235395,
+      "tag": "0001_plan_return_via_checkin",
+      "breakpoints": true
     }
   ]
 }
