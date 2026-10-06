@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/tasks")({
   head: () => ({
     meta: [
       { title: "Daily Tasks — DollarCash" },
-      { name: "description", content: "Complete your DollarCash daily check-in and earn $0.15." },
+      { name: "description", content: "Complete your DollarCash daily check-in and earn your plan's daily return." },
       { property: "og:title", content: "Daily Tasks — DollarCash" },
       { property: "og:description", content: "Complete short daily tasks to earn rewards." },
     ],
@@ -35,11 +35,12 @@ function TasksPage() {
 
   const complete = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.rpc("complete_task", { _task_id: id });
+      const { data, error } = await supabase.rpc("complete_task", { _task_id: id });
       if (error) throw error;
+      return Number((data as { reward?: number } | null)?.reward ?? 0);
     },
-    onSuccess: () => {
-      toast.success("Task complete — $0.15 added to your balance");
+    onSuccess: (reward) => {
+      toast.success(`Task complete — $${reward.toFixed(2)} added to your balance`);
       qc.invalidateQueries({ queryKey: ["tasks-today"] });
       qc.invalidateQueries({ queryKey: ["profile"] });
     },

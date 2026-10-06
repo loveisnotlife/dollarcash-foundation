@@ -37,7 +37,7 @@ function Transactions() {
       <div className="animate-rise">
         <h1 className="text-2xl font-semibold text-foreground">Transactions</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Daily profit is credited automatically at 12:00 AM (Pakistan time).
+          Your plan's daily return is credited when you complete the daily check-in.
         </p>
       </div>
 
@@ -61,8 +61,8 @@ function Transactions() {
         ) : (payments ?? []).length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border/70 bg-card/50 p-8 text-center">
             <p className="text-sm text-muted-foreground">
-              No profit payments yet. Buy an investment plan and your first daily profit arrives at
-              midnight.
+              No profit payments yet. Buy an investment plan and complete the daily check-in to
+              receive your daily return.
             </p>
           </div>
         ) : (
