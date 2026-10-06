@@ -21,7 +21,7 @@ type Entry = {
   id: string;
   kind: "deposit" | "withdrawal" | "profit" | "task" | "referral" | "plan";
   label: string;
-  note?: string;
+  note?: string | undefined;
   amount: number; // signed effect on balance
   at: string;
 };
